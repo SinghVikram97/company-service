@@ -1,9 +1,11 @@
 package com.vikram.companyservice.service;
 
+import com.vikram.companyservice.delegate.JobServiceDelegate;
 import com.vikram.companyservice.dto.CompanyDTO;
 import com.vikram.companyservice.entity.CompanyEntity;
 import com.vikram.companyservice.exception.ResourceNotFoundException;
 import com.vikram.companyservice.mapper.ModelMapper;
+import com.vikram.companyservice.model.Job;
 import com.vikram.companyservice.repository.CompanyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,7 +18,7 @@ import java.util.stream.Collectors;
 public class CompanyServiceImpl implements CompanyService{
     private final ModelMapper modelMapper;
     private final CompanyRepository companyRepository;
-
+    private final JobServiceDelegate jobServiceDelegate;
 
     @Override
     public CompanyDTO createCompany(CompanyDTO companyDto) {
@@ -51,6 +53,14 @@ public class CompanyServiceImpl implements CompanyService{
         CompanyEntity company = getCompanyOrThrowException(id);
         companyRepository.deleteById(company.getId());
         return modelMapper.mapCompanyToCompanyDto(company);
+    }
+
+    @Override
+    public List<Job> getAllJobsByCompany(Long id) {
+        // 1. Check if valid companyId
+        getCompanyOrThrowException(id);
+        // 2. Get jobs
+        return jobServiceDelegate.getAllJobsByCompany(id);
     }
 
     private CompanyEntity getCompanyOrThrowException(Long id){

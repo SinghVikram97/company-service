@@ -1,5 +1,6 @@
 package com.vikram.companyservice.exceptionhandler;
 
+import com.vikram.companyservice.exception.DownstreamServiceException;
 import com.vikram.companyservice.exception.ErrorResponse;
 import com.vikram.companyservice.exception.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -36,6 +37,14 @@ public class GlobalExceptionHandler {
                     errorResponse.put(fieldName, message);
                 }) );
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(DownstreamServiceException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ResponseEntity<ErrorResponse> handleDownstreamServiceException(DownstreamServiceException downstreamServiceException) {
+        ErrorResponse response = new ErrorResponse(
+                downstreamServiceException.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }

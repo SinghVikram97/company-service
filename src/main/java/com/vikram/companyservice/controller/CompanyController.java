@@ -1,6 +1,7 @@
 package com.vikram.companyservice.controller;
 
 import com.vikram.companyservice.dto.CompanyDTO;
+import com.vikram.companyservice.model.Job;
 import com.vikram.companyservice.service.CompanyService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -37,6 +38,11 @@ public class CompanyController {
     @DeleteMapping("/{id}")
     public CompanyDTO deleteCompany(@PathVariable Long id){
         return companyService.deleteCompany(id);
+    }
+
+    @GetMapping("/{id}/jobs")
+    public List<Job> getJobsByCompany(@PathVariable Long id) {
+        return companyService.getAllJobsByCompany(id);
     }
 }
 
