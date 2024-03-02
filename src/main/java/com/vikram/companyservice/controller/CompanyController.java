@@ -2,6 +2,7 @@ package com.vikram.companyservice.controller;
 
 import com.vikram.companyservice.dto.CompanyDTO;
 import com.vikram.companyservice.model.Job;
+import com.vikram.companyservice.model.Review;
 import com.vikram.companyservice.service.CompanyService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -43,6 +44,11 @@ public class CompanyController {
     @GetMapping("/{id}/jobs")
     public List<Job> getJobsByCompany(@PathVariable Long id) {
         return companyService.getAllJobsByCompany(id);
+    }
+
+    @GetMapping("/{id}/reviews")
+    public List<Review> getAllReviewsForCompany(@PathVariable Long id) {
+        return companyService.getAllReviewsForCompany(id);
     }
 }
 
