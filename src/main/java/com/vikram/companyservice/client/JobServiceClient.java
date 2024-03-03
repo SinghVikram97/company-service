@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@FeignClient(name = "${job.service.name}", url = "${job.service.url}")
+@FeignClient(name = "${job.service.name}")
 public interface JobServiceClient {
     @GetMapping("${job.service.basepath}/company")
     ResponseEntity<List<Job>> getAllJobsByCompany(@RequestParam("company_id") Long companyId);
