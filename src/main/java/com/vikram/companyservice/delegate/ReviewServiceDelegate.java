@@ -1,9 +1,7 @@
 package com.vikram.companyservice.delegate;
 
-import com.vikram.companyservice.client.JobServiceClient;
 import com.vikram.companyservice.client.ReviewServiceClient;
 import com.vikram.companyservice.exception.DownstreamServiceException;
-import com.vikram.companyservice.model.Job;
 import com.vikram.companyservice.model.Review;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
