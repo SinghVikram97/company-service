@@ -1,7 +1,6 @@
 package com.vikram.companyservice.client;
 
 import com.vikram.companyservice.model.Review;
-import io.github.resilience4j.circuitbreaker.CallNotPermittedException;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
 import org.springframework.cloud.openfeign.FeignClient;

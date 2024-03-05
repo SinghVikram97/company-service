@@ -6,6 +6,7 @@ import com.vikram.companyservice.dto.CompanyDTO;
 import com.vikram.companyservice.entity.CompanyEntity;
 import com.vikram.companyservice.exception.ResourceNotFoundException;
 import com.vikram.companyservice.mapper.ModelMapper;
+import com.vikram.companyservice.messaging.CompanyMessageProducer;
 import com.vikram.companyservice.model.Job;
 import com.vikram.companyservice.model.Review;
 import com.vikram.companyservice.repository.CompanyRepository;
@@ -22,6 +23,7 @@ public class CompanyServiceImpl implements CompanyService{
     private final CompanyRepository companyRepository;
     private final JobServiceDelegate jobServiceDelegate;
     private final ReviewServiceDelegate reviewServiceDelegate;
+    private final CompanyMessageProducer companyMessageProducer;
 
     @Override
     public CompanyDTO createCompany(CompanyDTO companyDto) {
@@ -55,6 +57,9 @@ public class CompanyServiceImpl implements CompanyService{
     public CompanyDTO deleteCompany(Long id) {
         CompanyEntity company = getCompanyOrThrowException(id);
         companyRepository.deleteById(company.getId());
+
+        // Send message to queue to delete related jobs and reviews
+        companyMessageProducer.sendMessage(id);
         return modelMapper.mapCompanyToCompanyDto(company);
     }
 

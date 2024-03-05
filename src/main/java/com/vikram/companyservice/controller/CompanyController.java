@@ -1,6 +1,5 @@
 package com.vikram.companyservice.controller;
 
-import brave.Tracer;
 import com.vikram.companyservice.dto.CompanyDTO;
 import com.vikram.companyservice.model.Job;
 import com.vikram.companyservice.model.Review;
